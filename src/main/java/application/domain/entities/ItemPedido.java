@@ -20,5 +20,5 @@ public class ItemPedido {
     @ManyToOne
     private Product product;
 
-    private Integer quantity;
+    private Integer quantidade;
 }
