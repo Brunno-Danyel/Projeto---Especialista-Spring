@@ -8,11 +8,9 @@ import javax.persistence.*;
 import java.util.Set;
 
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 public class Client {
 

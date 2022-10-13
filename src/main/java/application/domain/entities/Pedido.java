@@ -1,8 +1,6 @@
 package application.domain.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -10,10 +8,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@ToString
 public class Pedido {
 
     @Id

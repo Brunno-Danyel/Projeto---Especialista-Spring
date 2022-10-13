@@ -1,7 +1,6 @@
 package application.domain.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 public class Product {
 
