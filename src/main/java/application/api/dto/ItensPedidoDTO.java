@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemsPedidoDTO {
+public class ItensPedidoDTO {
 
     private Integer produto;
     private Integer quantidade;
