@@ -18,7 +18,7 @@ public class PedidoController {
     @PostMapping
     @ResponseStatus(CREATED)
     public Integer addPedido(@RequestBody PedidoDTO dto){
-       Pedido pedido = service.add(dto);
+       Pedido pedido = service.save(dto);
        return pedido.getId();
     }
 
