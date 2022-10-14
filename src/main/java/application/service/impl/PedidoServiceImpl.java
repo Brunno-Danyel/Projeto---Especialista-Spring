@@ -6,6 +6,7 @@ import application.domain.entities.Client;
 import application.domain.entities.ItemPedido;
 import application.domain.entities.Pedido;
 import application.domain.entities.Product;
+import application.domain.enums.StatusPedido;
 import application.domain.repositories.ClientRepository;
 import application.domain.repositories.ItemPedidoRepository;
 import application.domain.repositories.PedidoRepository;
@@ -47,6 +48,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setTotal(dto.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setClient(client);
+        pedido.setStatus(StatusPedido.REALIZADO);
 
         List<ItemPedido> itensPedidos = convertItens(pedido, dto.getItems());
         pedidoRepository.save(pedido);
