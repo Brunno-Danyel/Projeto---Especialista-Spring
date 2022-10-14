@@ -11,11 +11,15 @@ import application.domain.repositories.ClientRepository;
 import application.domain.repositories.ItemPedidoRepository;
 import application.domain.repositories.PedidoRepository;
 import application.domain.repositories.ProductRepository;
+import application.exeption.PedidoNaoEncontradoException;
 import application.exeption.RegraNegocioException;
 import application.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -77,6 +81,22 @@ public class PedidoServiceImpl implements PedidoService {
             return itemPedido;
         }).collect(Collectors.toList());
 
+    }
+
+
+    public Pedido buscarPedido(Integer id) {
+        return pedidoRepository.findById(id)
+                .orElseThrow(() -> new PedidoNaoEncontradoException());
+
+    }
+
+    @Transactional
+    public void cancelarPedido(Integer id) {
+        Pedido pedido = buscarPedido(id);
+
+        pedido.cancelar();
+
+        pedidoRepository.save(pedido);
     }
 
 

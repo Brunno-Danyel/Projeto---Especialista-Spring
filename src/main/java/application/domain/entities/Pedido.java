@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -32,4 +33,14 @@ public class Pedido {
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
+
+
+    public void cancelar() {
+        if (podeSerfinalizada()) {
+            setStatus(StatusPedido.CANCELADO);
+        }
+    }
+    public boolean podeSerfinalizada() {
+        return StatusPedido.REALIZADO.equals(getStatus());
+    }
 }

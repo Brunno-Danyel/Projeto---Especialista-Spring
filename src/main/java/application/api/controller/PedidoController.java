@@ -6,14 +6,13 @@ import application.api.dto.PedidoDTO;
 import application.domain.entities.ItemPedido;
 import application.domain.entities.Pedido;
 import application.service.PedidoService;
+import application.service.impl.PedidoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,8 +23,13 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api/pedidos")
 public class PedidoController {
 
+
+
     @Autowired
     private PedidoService service;
+
+    @Autowired
+    PedidoServiceImpl service2;
 
     @PostMapping
     @ResponseStatus(CREATED)
@@ -65,5 +69,12 @@ public class PedidoController {
                         .quantidade(item.getQuantidade())
                         .build()
         ).collect(Collectors.toList());
+    }
+
+    @PutMapping("id/{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void updateStatus(@PathVariable Integer id){
+        service2.cancelarPedido(id);
+
     }
 }
