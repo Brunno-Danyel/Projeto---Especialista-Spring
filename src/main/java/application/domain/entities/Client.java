@@ -1,10 +1,13 @@
 package application.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.springframework.http.ResponseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 
@@ -17,8 +20,12 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @NotEmpty(message = "Campo NOME é obrigatório")
     private String nome;
 
+    @NotEmpty(message = "Campo CPF é obrigatório")
+    @CPF(message = "Informe um CPF válido")
     @Column(length = 11)
     private String cpf;
 
