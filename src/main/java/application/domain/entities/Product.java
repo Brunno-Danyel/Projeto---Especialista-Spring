@@ -21,9 +21,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotEmpty(message = "Campo DESCRIÇÃO é obrigatório")
+    @NotEmpty(message = "{campo.descricao.obrigatorio}")
     private String descricao;
 
-    @NotNull(message = "Campo PREÇO obrigatório")
+    @NotNull(message = "{campo.preco.obrigatorio}")
     private BigDecimal preco;
 }

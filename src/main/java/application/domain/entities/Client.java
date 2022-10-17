@@ -21,11 +21,11 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotEmpty(message = "Campo NOME é obrigatório")
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
 
-    @NotEmpty(message = "Campo CPF é obrigatório")
-    @CPF(message = "Informe um CPF válido")
+    @NotEmpty(message = "{campo.cpf.obrigatorio}")
+    @CPF(message = "{campo.cpf.invalido}")
     @Column(length = 11)
     private String cpf;
 
