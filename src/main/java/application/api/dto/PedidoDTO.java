@@ -1,5 +1,6 @@
 package application.api.dto;
 
+import application.validation.NotEmptyList;
 import lombok.*;
 
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class PedidoDTO {
     @NotNull(message = "Campo TOTAL do pedido obrigatório")
     private BigDecimal total;
 
-
+    @NotEmptyList(message = "Pedido não pode ser realizado sem itens. Adicione alguns itens para prosseguir")
     private List<ItensPedidoDTO> items;
 
 }
