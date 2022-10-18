@@ -20,13 +20,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
                 .withUser("Cicrano")
-                .password(passwordEncoder().encode("123")).roles("USER");
+                .password(passwordEncoder()
+                .encode("123"))
+                .roles("USER", "ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/api/clients/**")
-                .permitAll().and().formLogin();
+                .antMatchers("/api/clients/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/products/**").hasRole("ADMIN")
+                .antMatchers("/api/pedidos/**").hasAnyRole("USER", "ADMIN").and().formLogin();
     }
 }
