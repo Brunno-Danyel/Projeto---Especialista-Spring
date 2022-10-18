@@ -1,4 +1,4 @@
-package application.service.impl;
+package application.domain.entities.service.impl;
 
 import application.api.dto.ItensPedidoDTO;
 import application.api.dto.PedidoDTO;
@@ -13,13 +13,10 @@ import application.domain.repositories.PedidoRepository;
 import application.domain.repositories.ProductRepository;
 import application.exeption.PedidoNaoEncontradoException;
 import application.exeption.RegraNegocioException;
-import application.service.PedidoService;
+import application.domain.entities.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;

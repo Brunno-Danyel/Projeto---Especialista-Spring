@@ -1,4 +1,4 @@
-package application.service;
+package application.domain.entities.service;
 
 import application.api.dto.PedidoDTO;
 import application.domain.entities.Pedido;
