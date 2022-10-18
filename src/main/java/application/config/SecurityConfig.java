@@ -19,12 +19,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
-                                     .withUser("Brunno")
-                                     .password(passwordEncoder().encode("123")).roles("USER");
+                .withUser("Cicrano")
+                .password(passwordEncoder().encode("123")).roles("USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/api/clients/**")
+                .permitAll().and().formLogin();
     }
 }
