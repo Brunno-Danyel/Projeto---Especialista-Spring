@@ -3,6 +3,7 @@ package application.config;
 import application.domain.entities.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,6 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/api/clients/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/products/**").hasRole("ADMIN")
-                .antMatchers("/api/pedidos/**").hasAnyRole("USER", "ADMIN").and().httpBasic();
+                .antMatchers("/api/pedidos/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll()
+                .anyRequest().authenticated().and().httpBasic();
     }
 }
