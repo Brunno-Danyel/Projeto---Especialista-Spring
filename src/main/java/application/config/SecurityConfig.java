@@ -5,7 +5,6 @@ import application.security.jwt.JwtAuthFilter;
 import application.security.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,29 +27,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public OncePerRequestFilter jwtFilter(){
+    public OncePerRequestFilter jwtFilter() {
         return new JwtAuthFilter(jwtService, userService);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        auth
+                .userDetailsService(userService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-                .antMatchers("/api/clients/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/products/**").hasRole("ADMIN")
+        http
+                .csrf().disable().authorizeRequests()
+                .antMatchers("/api/clientes/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/pedidos/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/produtos/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll()
                 .anyRequest().authenticated().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
-
+        ;
     }
+
+
 }

@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository repository;
 
+    @Transactional
+    public Usuario save(Usuario usuario) {
+        return repository.save(usuario);
+    }
+
     public UserDetails autenticar(Usuario usuario) {
         UserDetails user = loadUserByUsername(usuario.getLogin());
         boolean senhasBatem = passwordEncoder.matches(usuario.getSenha(), user.getPassword());
@@ -41,11 +46,8 @@ public class UserServiceImpl implements UserDetailsService {
                 .builder()
                 .username(usuario.getLogin())
                 .password(usuario.getSenha())
-                .roles(roles).build();
+                .roles(roles)
+                .build();
     }
 
-    @Transactional
-    public Usuario save(Usuario usuario) {
-        return repository.save(usuario);
-    }
 }

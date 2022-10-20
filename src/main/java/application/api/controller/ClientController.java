@@ -14,16 +14,11 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/clients")
+@RequestMapping("/api/clientes")
 public class ClientController {
 
     @Autowired
     private ClientRepository repository;
-
-    @GetMapping("/hello/{nomeClient}")
-    public String HelloClient(@PathVariable String nomeClient) {
-        return String.format("Hello %s ", nomeClient);
-    }
 
     @GetMapping("/id/{id}")
     public Client findByClientId(@PathVariable Integer id) {

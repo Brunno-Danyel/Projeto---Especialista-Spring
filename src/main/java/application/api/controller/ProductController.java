@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/produtos")
 public class ProductController {
 
     @Autowired
