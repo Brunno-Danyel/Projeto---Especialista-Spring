@@ -2,6 +2,7 @@ package application.api.controller;
 
 import application.domain.entities.Client;
 import application.domain.repositories.ClientRepository;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -15,13 +16,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
+@Api("Api Clientes")
 public class ClientController {
 
     @Autowired
     private ClientRepository repository;
 
     @GetMapping("/id/{id}")
-    public Client findByClientId(@PathVariable Integer id) {
+    @ApiOperation("Obter detalhes de um cliente")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente Encontrado"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado com o ID informado")
+    })
+    public Client findByClientId(@PathVariable @ApiParam("Id do cliente") Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
     }
@@ -34,6 +41,11 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Salva um novo cliente")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Cliente salvo com sucesso"),
+            @ApiResponse(code = 400, message = "Erro de validação")
+    })
     public Client addClient(@RequestBody @Valid Client client) {
         return repository.save(client);
     }
