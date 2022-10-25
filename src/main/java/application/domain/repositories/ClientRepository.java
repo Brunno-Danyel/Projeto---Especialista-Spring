@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository <Client, Integer> {
 
@@ -14,7 +15,7 @@ public interface ClientRepository extends JpaRepository <Client, Integer> {
 
     List<Client> findByNomeOrIdOrderById(String nome, Integer id);
 
-    Client findByCpf(String cpf);
+   Optional <Client> findByCpf(String cpf);
 
     @Query("select c from Client c left join fetch c.pedidos where c.id =:id ")
     Client findClientFetchPedidos(@Param("id") Integer id);

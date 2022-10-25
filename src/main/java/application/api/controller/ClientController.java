@@ -87,9 +87,11 @@ public class ClientController {
     }
 
     @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<Client> findByCpf(@PathVariable String cpf) {
-        Client client = repository.findByCpf(cpf);
-        return ResponseEntity.ok().body(client);
+    public Client findByCpf(@PathVariable String cpf) {
+      return repository.findByCpf(cpf)
+              .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CPF não encontrado"));
+
+
     }
 
 
