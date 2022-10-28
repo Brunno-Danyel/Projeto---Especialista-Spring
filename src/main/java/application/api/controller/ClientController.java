@@ -87,6 +87,11 @@ public class ClientController {
     }
 
     @GetMapping("/cpf/{cpf}")
+    @ApiOperation("Obter detalhes de um cliente atráves do CPF")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "CPF Encontrado"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado com o CPF informado")
+    })
     public Client findByCpf(@PathVariable String cpf) {
       return repository.findByCpf(cpf)
               .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CPF não encontrado"));
